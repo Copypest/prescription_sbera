@@ -8,7 +8,7 @@ if(isset($_SESSION['user_type']) && isset($_SESSION['PRESCRIPTION_ID']) && isset
 	$PRESCRIPTION_ID = $_SESSION['PRESCRIPTION_ID'];
 	$chamber_name = $_SESSION['chamber_name'];
 	$doc_name= $_SESSION['doc_name'];
-	$admin= new admin(); 
+	$admin= new admin($link); 
 ?>
 <div class="container"><!-- Begin container -->
        
@@ -30,30 +30,10 @@ if(isset($_SESSION['user_type']) && isset($_SESSION['PRESCRIPTION_ID']) && isset
     $patient_id = $_POST['patient_id'];
     $visit_id = $_POST['VISIT_ID'];
     $other_comment = htmlspecialchars($_POST['other_comment']);
-   /*  $weight = 0;
-    $height = 0;
-    //update patient_health_details BMI Value
-    $result3 = mysql_query("select * from patient_health_details where ID IN('1','2') and VISIT_ID = '$VISIT_ID' AND chamber_id='$chamber_name' AND doc_id='$doc_name'");
-    while($rs5 = mysql_fetch_array($result3)){
-        if($rs5['ID'] == 1){
-            $height = $rs5['VALUE'];
-        } else if ($rs5['ID'] == 2){
-            $weight = $rs5['VALUE'];
-        } 
-    }
-    
-    if($weight != 0 && $height != 0){
-        $update= new admin(); 
-        $bmi = $update->calcBMI($weight, $height);
-
-        $udateQueryforph = "insert into patient_health_details (ID, VALUE,VISIT_ID, chamber_id, doc_id) 
-        values ('3','$bmi','$VISIT_ID', '$chamber_name', '$doc_name')";
-
-        mysql_query($udateQueryforph);
-    } */
-    $oth_comnt = mysql_real_escape_string($other_comment);
-    mysql_query("update prescription set VISIT_ID = '$VISIT_ID',DIET = '$diet', NEXT_VISIT = '$next_visit', 
-    		STATUS ='SAVE', ANY_OTHER_DETAILS='$oth_comnt' where PRESCRIPTION_ID = '$PRESCRIPTION_ID' and STATUS='DRAFT'") or die(mysql_error());
+   
+    $oth_comnt = mysqli_real_escape_string($link,$other_comment);
+    mysqli_query($link,"update prescription set VISIT_ID = '$VISIT_ID',DIET = '$diet', NEXT_VISIT = '$next_visit', 
+    		STATUS ='SAVE', ANY_OTHER_DETAILS='$oth_comnt' where PRESCRIPTION_ID = '$PRESCRIPTION_ID' and STATUS='DRAFT'") or die(mysqli_error($link));
     
    
     if (isset($_POST['inv'])) {
@@ -63,41 +43,29 @@ if(isset($_SESSION['user_type']) && isset($_SESSION['PRESCRIPTION_ID']) && isset
         //echo "Checked Values" . $temp ;
         if (!empty($inv)) {
         	$precribed_inv_id = $admin->getmaxPrescribedInvestigationID($chamber_name, $doc_name);
-            $invarray = array_map('mysql_real_escape_string',$inv);
+            $invarray = array_map(array($link,'mysqli_real_escape_string'),$inv);
             //echo "Checked Values" . $invarray ;
             foreach ($invarray as $value) {
                     // Act on $value
                     //insert into prescribed_INVESTIGATION
                 //echo "VALUE -> ".$value;
-                    mysql_query("INSERT INTO prescribed_investigation (PRESCRIBED_INVESTIGATION_ID, PRESCRIPTION_ID,INVESTIGATION_ID,chamber_id, doc_id) 
+                    mysqli_query($link,"INSERT INTO prescribed_investigation (PRESCRIBED_INVESTIGATION_ID, PRESCRIPTION_ID,INVESTIGATION_ID,chamber_id, doc_id) 
                             values ('$precribed_inv_id', '".$PRESCRIPTION_ID."','".$value."','$chamber_name','$doc_name')");
                     $precribed_inv_id = $precribed_inv_id +1;
             }
         }
     }
-    /*if (isset($_POST['cf'])) {
-        $cf = $_POST['cf'];
-        if (!empty($cf)) {
-            $cfarray = array_map('mysql_real_escape_string',$cf);
-                foreach ($cfarray as $value) {
-                    // Act on $value
-                    //insert into prescribed_INVESTIGATION
-                //echo "VALUE -> ".$value;
-                    mysql_query("INSERT INTO prescribed_cf (clinical_impression_id,prescription_id) 
-                            values ('".$value."','".$PRESCRIPTION_ID."')");
-            }
-        }
-    }*/
+    
         $query = "update visit set VISITED = 'yes' where VISIT_ID = '$VISIT_ID' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
         //$query = "update visit a set a.VISITED = 'yes' where a.PATIENT_ID = 
           //          (select b.PATIENT_ID  from prescription b where b.prescription_id = '$PRESCRIPTION_ID')";
-        mysql_query($query) or die(mysql_error());
+        mysqli_query($link,$query) or die(mysqli_error($link));
         
         $query = "select * from visit where VISIT_ID = '$VISIT_ID' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($link,$query) or die(mysqli_error($link));
         
-        while($row = mysql_fetch_array($result)){
-            mysql_query("update visit set VISITED = 'yes' where patient_id = '".$row['PATIENT_ID']."' AND chamber_id='$chamber_name' AND doc_id='$doc_name'") or die(mysql_error());
+        while($row = mysqli_fetch_assoc($result)){
+            mysqli_query($link,"update visit set VISITED = 'yes' where patient_id = '".$row['PATIENT_ID']."' AND chamber_id='$chamber_name' AND doc_id='$doc_name'") or die(mysqli_error($link));
         }
         
         //echo "<div class='b_success'>PRESCRIPTION created successfully<br><h2><a href='visit_list.php'>OK</a></h2></div>";
@@ -121,7 +89,7 @@ if(isset($_SESSION['user_type']) && isset($_SESSION['PRESCRIPTION_ID']) && isset
    </div> <!-- End container -->
     
     <?php } else { 
-    	$admin= new admin(); 
+    	$admin= new admin($link); 
     	$patient_id = $admin->getPatientDetailsFromVisit($VISIT_ID, $chamber_id,$doc_name)->patient_id;
     	echo "<script>location.href='./archievedprescription.php?PRESCRIPTION_ID=$PRESCRIPTION_ID&visit_id=$VISIT_ID&patient_id=$patient_id'</script>";
     	

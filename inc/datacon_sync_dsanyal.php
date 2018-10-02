@@ -10,7 +10,7 @@ $dbName = "myepresc_desanyal";
 $con = mysql_connect($hostname,$username,$passwordsc);
 if (!$con)
 {
-    die('Could not connect: ' . mysql_error());
+    die('Could not connect: ' . mysqli_error($link));
 }
 mysql_select_db($dbName, $con);
 

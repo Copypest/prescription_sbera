@@ -8,11 +8,11 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
     if (!$q) return;
     
     $sql = "select a.TYPE from past_medical_history_master a where a.TYPE LIKE '$q%' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name' and STATUS='ACTIVE'";
-    $result = mysql_query($sql)or die(mysql_error());
+    $result = mysqli_query($link,$sql)or die(mysqli_error($link));
     
     $return_arr= array();
     
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysqli_fetch_assoc($result))
     {
         $row_array['label'] = $row['TYPE'];
         $row_array['value'] = $row['TYPE'];

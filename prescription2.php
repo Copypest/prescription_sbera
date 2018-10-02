@@ -49,12 +49,12 @@ $_SESSION['VISIT_ID'] = $visit_id;
 <?php
 
 
-//$r1 = mysql_query("select * from patient where patient_id = '$patient_id'") or die(mysql_error());
 
-$update= new admin(); 
+
+$update= new admin($link); 
 $d1 = $update->getPatientInformationForPrescription($patient_id, $chamber_name, $doc_name);
-//$r2 = mysql_query("select * from visit where PATIENT_ID = '$patient_id'");
-//$n2 = mysql_num_rows($r2);
+
+//$n2 = mysqli_num_rows($r2);
 ?>
 
             <!-- Begin container -->
@@ -177,13 +177,13 @@ $d1 = $update->getPatientInformationForPrescription($patient_id, $chamber_name, 
                     $q11 = "SELECT * FROM precribed_medicine a WHERE PRESCRIPTION_ID = '".$PRESCRIPTION_ID."' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
                             //echo $q5;
                     
-                            $result = mysql_query($q11) or die(mysql_error()); 
+                            $result = mysqli_query($link,$q11) or die(mysqli_error($link)); 
                     ?>
                    
                     <div  id="medicine" >
                        
                         <table id="table-3" class="table"> 
-                        <?php while($rs = mysql_fetch_array($result)) { ?>
+                        <?php while($rs = mysqli_fetch_assoc($result)) { ?>
 
                             <tr>
                                 <td>

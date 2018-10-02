@@ -3,7 +3,7 @@ include_once"../inc/datacon.php";
 include '../classes/admin_class.php';
 
 	
-    $admin = new admin();
+    $admin = new admin($link);
 
 			//if(isset($_POST['CREATE_PATIENT_DATA'])){
     			$role = $_POST['role'];
@@ -27,13 +27,13 @@ include '../classes/admin_class.php';
 				user_alt_cell_num, user_email, create_date)
 				values('$gender','$fname', '$lname', '$addr', '$city', '$dob' ,'$cellnum', '$altcellnum', 
                         '$email',  NOW() )";
-				mysql_query($sql1) or die(mysql_error());
+				mysqli_query($link,$sql1) or die(mysqli_error($link));
 			
 				//Insert into user table
 				
 				$inert_query = "insert into user(user_name,	user_full_name,	user_password,	role) values(
 				'$uid','$full_name','".md5($password)."','$role')";
-				mysql_query($inert_query) or die(mysql_error());
+				mysqli_query($link,$inert_query) or die(mysqli_error($link));
 				
 				echo "Dear  $fname $lname !! Registration is successful. <a class='btn btn-primary' href='./index_login.php'>Login Now !!</a>";
 				

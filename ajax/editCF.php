@@ -13,7 +13,7 @@ if($mode == 'DELETE'){
     $query = "UPDATE patient_health_details_master SET STATUS='INACTIVE' where 
                 ID = '".$CFId."' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
 
-    mysql_query($query)or die(mysql_error());
+    mysqli_query($link,$query)or die(mysqli_error($link));
 
     include 'searchCF.php';
     
@@ -21,14 +21,14 @@ if($mode == 'DELETE'){
     $sql1 = "select * from investigation_master a where 
                 a.ID = '".$investID."' 
                 and a.STATUS = 'ACTIVE' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
-    $result1 = mysql_query($sql1)or die(mysql_error());
-    $no = mysql_num_rows($result1);
+    $result1 = mysqli_query($link,$sql1)or die(mysqli_error($link));
+    $no = mysqli_num_rows($result1);
     echo "<table width='600' border='0' cellspacing='0' cellpadding='0'>";
       echo "<td class='head_tbl'>Investigation Name</td>
        
         <td class='head_tbl'>ACTION</td>
         </tr>";
-   while($d1 = mysql_fetch_array($result1)){
+   while($d1 = mysqli_fetch_assoc($result1)){
            echo "<tr>
                 <td class='odd'> <input type='text' id='inv_name' value='".$d1['investigation_name']."' ></td>
                 
@@ -44,7 +44,7 @@ if($mode == 'DELETE'){
                 ID = '".$investID."' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
 
     //echo $query;
-    mysql_query($query)or die(mysql_error());
+    mysqli_query($link,$query)or die(mysqli_error($link));
 
     include 'searchInvestigation.php';
     

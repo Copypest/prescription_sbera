@@ -10,14 +10,14 @@ $table_array = array('allergy_master','clinical_impression','dose_details_master
 foreach($table_array as $table){
     
     $sql = "SELECT * FROM $table WHERE isSync = '0'";
-    $resource = mysql_query($sql) or die(mysql_error());
+    $resource = mysqli_query($link,$sql) or die(mysqli_error($link));
     
     echo "<pre>";
     
     $data = array();
-	$no = mysql_num_rows($resource);
+	$no = mysqli_num_rows($resource);
     if ( $no > 0) {
-    while($result = mysql_fetch_assoc($resource)){
+    while($result = mysqli_fetch_assoc($resource)){
         //print_r($result);
         array_push($data, $result);
     }
@@ -42,7 +42,7 @@ foreach($table_array as $table){
     
     $sql_update = "UPDATE $table SET isSync = '1' WHERE auto_id IN ($server_output)";
     echo $sql_update;
-    mysql_query($sql_update) or die(mysql_error());
+    mysqli_query($link,$sql_update) or die(mysqli_error($link));
     
     echo $sql_update."<br>"; 
 	} else{

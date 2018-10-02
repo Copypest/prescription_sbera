@@ -2,7 +2,7 @@
 include_once 'classes/admin_class.php';
 if(isset($_SESSION['user_type']) && isset($_SESSION['user_id']) && (isset($_GET['chamber_name']) ||   isset($_SESSION['chamber_name'])) && (isset($_GET['doc_name']) ||   isset($_SESSION['doc_name']))) {
     $user_id = $_SESSION['user_id'];
-    $adminObj = new admin();
+    $adminObj = new admin($link);
     $resultObj = $adminObj->getUserDetails($user_id);
     $user_type = $_SESSION['user_type'];
     

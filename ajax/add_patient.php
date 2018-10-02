@@ -5,7 +5,7 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
 	$chamber_name = $_SESSION['chamber_name'];
 	$doc_name= $_SESSION['doc_name'];
 	
-    $admin = new admin();
+    $admin = new admin($link);
 	$user_type = $_SESSION['user_type']  ;
 	if($user_type == 'DOCTOR' || $user_type == 'RECEPTIONIST'){
 		if($user_type == 'RECEPTIONIST'){
@@ -33,17 +33,17 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
 				patient_alt_cell_num, patient_email, data_entry_date, chamber_id, created_by_user_id, create_date, doc_id)
 				values('$max_patient_id','$gender','$fname', '$lname', '$addr', '$city', '$dob' ,'$cellnum', '$altcellnum', 
                         '$email', NOW(),  '$chamber_name', '$user_name',  NOW() ,'$doc_name')";
-				mysql_query($sql1) or die(mysql_error());
+				mysqli_query($link,$sql1) or die(mysqli_error($link));
 				
 				
-				//$id = mysql_insert_id();
+				//$id = mysqli_insert_id($link);
 				$id = $max_patient_id;
 				//$sql2 = "insert into visit (PATIENT_ID, VISIT_DATE, APPOINTMENT_TO_DOC_NAME) values('$id', NOW(), '')";
-				//mysql_query($sql2) or die(mysql_error());
-				//$visit_id = mysql_insert_id();
+				//mysqli_query($link,$sql2) or die(mysqli_error($link));
+				//$visit_id = mysqli_insert_id($link);
 				
 				/*$sql3 = "insert into patient_health_details_by_receptionist (patient_id) values('$id')";
-				 mysql_query($sql3) or die(mysql_error());*/
+				 mysqli_query($link,$sql3) or die(mysqli_error($link));*/
 				
 				echo "$fname $lname data saved successfully. <a class='btn btn-primary' href='processData.php?patient_id=".$id."&chamber_name=".$chamber_name."&doc_name=".$doc_name."'>Create Visit !!</a>";
 			//}
@@ -63,7 +63,7 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
 			        data_entry_date, chamber_id, created_by_user_id, create_date, doc_id) 
 			        values('$max_patient_id', '$sex','$fname','$lname', '$dob' ,'$cell', NOW(),  '$chamber_name', '$user_name',  NOW() ,'$doc_name')";
 			//echo $sql1;
-			mysql_query($sql1) or die(mysql_error());
+			mysqli_query($link,$sql1) or die(mysqli_error($link));
 			
 			$id = $max_patient_id;
 			

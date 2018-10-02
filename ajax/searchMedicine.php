@@ -12,8 +12,8 @@ $strMedicineName = $_GET["medicine_name"];
 $sql1 = "select * from medicine_master a where a.medicine_name like '".$strMedicineName."%' 
         and a.MEDICINE_STATUS = 'ACTIVE' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
 //echo $sql1;
-$result1 = mysql_query($sql1)or die(mysql_error());
-$no = mysql_num_rows($result1);
+$result1 = mysqli_query($link,$sql1)or die(mysqli_error($link));
+$no = mysqli_num_rows($result1);
 
 if($no > 0){
         
@@ -24,7 +24,7 @@ if($no > 0){
         </thead><tbody>";
         
         
-        while($d1 = mysql_fetch_array($result1)){
+        while($d1 = mysqli_fetch_assoc($result1)){
            echo "<tr>
                 <td>".$d1['MEDICINE_NAME']."</td>
                 

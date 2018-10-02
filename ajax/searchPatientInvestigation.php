@@ -17,12 +17,12 @@ $sql1 = "select a.investigation_name, b.value, TIMESTAMPDIFF(YEAR,d.patient_dob,
         AND a.doc_id=b.doc_id
         AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name' 
         order by b.value desc";
-$result = mysql_query($sql1)or die(mysql_error());
+$result = mysqli_query($link,$sql1)or die(mysqli_error($link));
 
 
 $data = array();
 	
-	while ($row = mysql_fetch_array($result))
+	while ($row = mysqli_fetch_assoc($result))
 	{
 		$data[] = $row;
 	}

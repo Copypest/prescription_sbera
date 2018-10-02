@@ -25,7 +25,7 @@ if($_SESSION['user_type'] == 'DOCTOR' || $_SESSION['user_type'] == 'RECEPTIONIST
    $patientId = $_GET['patient_id'];
    $chamber_name = $_SESSION['chamber_name'];
    $doc_name= $_SESSION['doc_name'];
-   $admin = new admin();
+   $admin = new admin($link);
    
 ?>
     <body>

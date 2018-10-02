@@ -7,17 +7,17 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
 $PRESCRIPTION_ID = $_GET['prescription_id'];
 $TYPE = $_GET['TYPE'];
 
-$admin = new admin();
+$admin = new admin($link);
 $admin->insertUpdateSocialHistory($PRESCRIPTION_ID, $TYPE,$chamber_name, $doc_name);
 
 $q15 = "SELECT b.type, b.ID FROM prescribed_social_history a, social_history_master b 
         WHERE a.social_history_id = b.ID
         AND a.prescription_id = '$PRESCRIPTION_ID' and a.chamber_id=b.chamber_id and a.doc_id=b.doc_id
 		AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
-        $rsd1 = mysql_query($q15);
+        $rsd1 = mysqli_query($link,$q15);
 echo '<table>';
        
-    while($rs = mysql_fetch_array($rsd1)) {
+    while($rs = mysqli_fetch_assoc($rsd1)) {
         $type = $rs['type'];
         $cf_d = $rs['ID'];
         echo "<tr><td style='width: 180px;'>".$type."<a id='minusSocialHistory' href='#' ></a></td>".

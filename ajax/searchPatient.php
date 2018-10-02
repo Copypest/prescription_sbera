@@ -23,8 +23,8 @@ if($strPatientName != ""){
 $where .= "and chamber_id = '$chamber_name' and doc_id = '$doc_name' ";
 $sql1 = "select patient_id, GENDER	,patient_first_name, patient_last_name, age, TIMESTAMPDIFF( YEAR, patient_dob, NOW( ) ) AS age1, patient_cell_num, patient_address from patient where patient_id != ''".$where. "order by patient_id asc";
 //echo $sql1;
-$result1 = mysql_query($sql1)or die(mysql_error());
-$no = mysql_num_rows($result1);
+$result1 = mysqli_query($link,$sql1)or die(mysqli_error($link));
+$no = mysqli_num_rows($result1);
  
 if($no > 0){
         
@@ -44,7 +44,7 @@ if($no > 0){
 	  <tbody>";
         
         
-        while($d1 = mysql_fetch_array($result1)){
+        while($d1 = mysqli_fetch_assoc($result1)){
            echo "<tr>
                 <td>".$d1['GENDER']."</td>
                 <td><a href='processData.php?patient_id=".$d1['patient_id']."' class='btn btn-warning' role='button'>CREATE VISIT(".$d1['patient_id'].")</a></td>

@@ -82,10 +82,7 @@ $others = "";
 	/* INSERT INTO PATIENT */
 	//$sql="INSERT INTO PATIENT_HEALTH_DETAILS_BY_RECEPTIONIST (patient_id ,VISIT_ID , BP_UP, BP_DOWN , HEIGHT_IN_CM , weight, BMI, FBS , PPBS_PRE_BREAKFAST , PPBS_POST_BREAKFAST , PPBS_PRE_LUNCH , PPBS_POST_LUNCH , PPBS_PRE_DINNER ,PPBS_POST_DINNER , TSH ,T3 ,T4 , OTHERS) VALUES ('$_POST[patient_id]','$_POST[visit_id]','$_POST[bpup]','$_POST[bpdown]','$_POST[height]','$_POST[weight]','$_POST[bmi]','$_POST[fbs]', '$_POST[fbs]','$_POST[ppbs_bf]', '$_POST[ppbs_prelunch]','$_POST[ppbs_postlunch]', '$_POST[ppbs_predinner]','$_POST[ppbs_postdinner]', '$_POST[tsh]','$_POST[t3]', '$_POST[t4]','$_POST[others]' )";
 
-	/*if (!mysql_query($sql,$con))
-	  {
-	  die('Error: ' . mysql_error());
-	  }*/
+	
 
 ?>
 
@@ -153,9 +150,9 @@ $others = "";
                             
                           </tr>
 					<?php
-						$result = mysql_query("select * from  patient  order by data_entry_date desc");
+						$result = mysqli_query($link,"select * from  patient  order by data_entry_date desc");
 
-						while($row = mysql_fetch_array($result))
+						while($row = mysqli_fetch_assoc($result))
 						  {
 					?>
                           <tr>
@@ -166,7 +163,7 @@ $others = "";
                           </tr>
 					<?php 
 						}
-						mysql_close($con);
+						mysqli_close($link);
 					?>
                         </table>
                     <table width="720" border="0" cellspacing="0" cellpadding="0">

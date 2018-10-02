@@ -9,9 +9,9 @@
                         FROM prescribed_allergy a, allergy_master b
                         WHERE a.ALLERGY_ID = b.ALLERGY_ID
                         AND a.PRESCRIPTION_ID = '$PRESCRIPTION_ID' and a.chamber_id='".$chamber_name."' AND a.doc_id='".$doc_name."' and a.chamber_id=b.chamber_id and a.doc_id=b.doc_id";
-                $rsd1 = mysql_query($q15) or die(mysql_error());
+                $rsd1 = mysqli_query($link,$q15) or die(mysqli_error($link));
 
-                while($rs = mysql_fetch_array($rsd1)) {
+                while($rs = mysqli_fetch_assoc($rsd1)) {
                     $type = $rs['ALLERGY_NAME'];
                     $allergy_name = $rs['ALLERGY_ID'];
             ?>

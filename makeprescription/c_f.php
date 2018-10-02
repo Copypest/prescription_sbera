@@ -9,9 +9,9 @@
                                 a.ID = b.ID
                                 and a.VISIT_ID = '$visit_id' and a.chamber_id=b.chamber_id and a.doc_id=b.doc_id and
             					a.chamber_id='".$chamber_name."' AND a.doc_id='".$doc_name."'";
-                            $rsd1 = mysql_query($q15);
+                            $rsd1 = mysqli_query($link,$q15);
 
-                            while($rs = mysql_fetch_array($rsd1)) {
+                            while($rs = mysqli_fetch_assoc($rsd1)) {
                                     $name = $rs['NAME'];
                                     $value = $rs['VALUE'];
                                     $id = $rs['ID'];

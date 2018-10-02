@@ -6,10 +6,10 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
     $q = strtolower($_GET["term"]);
 
     $sql = "select * from social_history_master where TYPE LIKE '$q%'";
-    $result = mysql_query($sql)or die(mysql_error());
+    $result = mysqli_query($link,$sql)or die(mysqli_error($link));
     $return_arr= array();
     
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysqli_fetch_assoc($result))
     {
         $row_array['label'] = $row['TYPE'];
         $row_array['value'] = $row['TYPE'];

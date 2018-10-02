@@ -1,7 +1,7 @@
 <?php
 include_once"../inc/datacon.php";
 include '../classes/admin_class.php';
-$admin = new admin();
+$admin = new admin($link);
 if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset($_SESSION['doc_name'])  ){
 	$chamber_name = $_SESSION['chamber_name'];
 	$doc_name= $_SESSION['doc_name'];
@@ -19,10 +19,10 @@ $q15 = "select a.VALUE, b.NAME, a.ID from
                             where
                             a.ID = b.ID and a.chamber_id=b.chamber_id and a.doc_id=b.doc_id 
                             and a.VISIT_ID = '$visit_id' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
-$rsd1 = mysql_query($q15);
+$rsd1 = mysqli_query($link,$q15);
 
 
-    while($rs = mysql_fetch_array($rsd1)) {
+    while($rs = mysqli_fetch_assoc($rsd1)) {
             $name = $rs['NAME'];
             $value = $rs['VALUE'];
             $id = $rs['ID'];

@@ -13,17 +13,17 @@ if(isset($_GET["MODE"])){
     $sql = "select * from medicine_master a where a.MEDICINE_NAME LIKE '$q%' and a.MEDICINE_STATUS = 'ACTIVE' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
 }
 //$sql = "select * from medicine_master a where a.MEDICINE_NAME LIKE '$q%' and a.MEDICINE_STATUS = 'ACTIVE' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
-/* $rsd = mysql_query($sql);
-while($rs = mysql_fetch_array($rsd)) {
+/* $rsd = mysqli_query($link,$sql);
+while($rs = mysqli_fetch_assoc($rsd)) {
 	$cname = $rs['MEDICINE_NAME'];
 	echo "$cname\n"; */
 
-	$result = mysql_query($sql)or die(mysql_error());
+	$result = mysqli_query($link,$sql)or die(mysqli_error($link));
 
 	
 	$return_arr= array();
 	
-	while ($row = mysql_fetch_array($result))
+	while ($row = mysqli_fetch_assoc($result))
 	{
 		$row_array['label'] = $row['MEDICINE_NAME'];
 		$row_array['value'] = $row['MEDICINE_NAME'];

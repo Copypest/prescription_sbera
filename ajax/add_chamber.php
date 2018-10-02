@@ -9,11 +9,11 @@ if(isset($_SESSION['user_name']) && isset($_SESSION['user_type'])) {
 		$chamber_name=trim($_POST['chamber_name']);
 		$related_doc_name=$_SESSION['user_name'];
 		
-		$chamber_address=mysql_real_escape_string(trim($_POST['chamber_address']));
+		$chamber_address=mysqli_real_escape_string($link,trim($_POST['chamber_address']));
 		$primary_phone_number=$_POST['primary_phone_number'];
 		$secondary_phone_number=$_POST['secondary_phone_number'];
-		$chamber_header=mysql_real_escape_string(trim($_POST['chamber_header']));
-		$chamber_footer=mysql_real_escape_string(trim($_POST['chamber_footer']));
+		$chamber_header=mysqli_real_escape_string($link,trim($_POST['chamber_header']));
+		$chamber_footer=mysqli_real_escape_string($link,trim($_POST['chamber_footer']));
 		
 		
 		
@@ -26,7 +26,7 @@ if(isset($_SESSION['user_name']) && isset($_SESSION['user_type'])) {
 			
 			$inert_query = "insert into chamber_master(chamber_id,	chamber_name,	related_doc_name,	chamber_address, primary_phone_number, secondary_phone_number, chamber_header, chamber_footer) values(
 			'$chamber_id','$chamber_name','$related_doc_name','$chamber_address','$primary_phone_number','$secondary_phone_number','$chamber_header','$chamber_footer')";
-			mysql_query($inert_query) or die(mysql_error());
+			mysqli_query($link,$inert_query) or die(mysqli_error($link));
 			
 			$post_data = array('status' => "success",
 			'message' => "Successfully added. Click here to Login ",
@@ -41,7 +41,7 @@ if(isset($_SESSION['user_name']) && isset($_SESSION['user_type'])) {
 								( 4, 'Ideal Body Weight (KG)', 'ACTIVE', '$chamber_id',  NOW(), '$related_doc_name'),
 								( 5, 'eGFR', 'ACTIVE', '$chamber_id', NOW(),  '$related_doc_name')";
 			
-			mysql_query($insert_query_for_patient_inv) or die(mysql_error());
+			mysqli_query($link,$insert_query_for_patient_inv) or die(mysqli_error($link));
 			
 			$myJSON = json_encode($post_data);
 		}
@@ -53,11 +53,11 @@ if(isset($_SESSION['user_name']) && isset($_SESSION['user_type'])) {
 		$chamber_name=trim($_POST['chamber_name']);
 		
 		
-		$chamber_address=mysql_real_escape_string(trim($_POST['chamber_address']));
+		$chamber_address=mysqli_real_escape_string($link,trim($_POST['chamber_address']));
 		$primary_phone_number=$_POST['primary_phone_number'];
 		$secondary_phone_number=$_POST['secondary_phone_number'];
-		$chamber_header=mysql_real_escape_string(trim($_POST['chamber_header']));
-		$chamber_footer=mysql_real_escape_string(trim($_POST['chamber_footer']));
+		$chamber_header=mysqli_real_escape_string($link,trim($_POST['chamber_header']));
+		$chamber_footer=mysqli_real_escape_string($link,trim($_POST['chamber_footer']));
 		
 		
 		
@@ -70,7 +70,7 @@ if(isset($_SESSION['user_name']) && isset($_SESSION['user_type'])) {
 			
 			$inert_query = "insert into chamber_master(chamber_id,	chamber_name,	related_doc_name,	chamber_address, primary_phone_number, secondary_phone_number, chamber_header, chamber_footer) values(
 			'$chamber_id','$chamber_name','$related_doc_name','$chamber_address','$primary_phone_number','$secondary_phone_number','$chamber_header','$chamber_footer')";
-			mysql_query($inert_query) or die(mysql_error());
+			mysqli_query($link,$inert_query) or die(mysqli_error($link));
 			
 			$post_data = array('status' => "success",
 					'message' => "Successfully added. Click here to Login ",
@@ -85,7 +85,7 @@ if(isset($_SESSION['user_name']) && isset($_SESSION['user_type'])) {
 			( 4, 'Ideal Body Weight (KG)', 'ACTIVE', '$chamber_id',  NOW(), '$related_doc_name'),
 			( 5, 'eGFR', 'ACTIVE', '$chamber_id', NOW(),  '$related_doc_name')";
 			
-			mysql_query($insert_query_for_patient_inv) or die(mysql_error());
+			mysqli_query($link,$insert_query_for_patient_inv) or die(mysqli_error($link));
 			
 			$myJSON = json_encode($post_data);
 		}

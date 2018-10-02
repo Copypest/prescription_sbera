@@ -12,11 +12,11 @@ if(isset($_REQUEST['action'])){
         $pass=stripslashes($_POST['password']);
 
         $sql = "select * from user where user_name = '$uname' and user_password = '".md5($pass)."'";
-        $r = mysql_query($sql) or die(mysql_error());
-        $d = mysql_fetch_object($r) ;
+        $r = mysqli_query($link,$sql) or die(mysqli_error($link));
+        $d = mysqli_fetch_object($r) ;
 
         
-        if(mysql_num_rows($r) > 0){
+        if(mysqli_num_rows($r) > 0){
             $user_role = $d->role;
             $user_name = $d->user_name;
             $user_id = $d->user_id;

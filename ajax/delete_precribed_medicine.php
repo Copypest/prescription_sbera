@@ -11,12 +11,12 @@ $PRESCRIPTION_ID = $_GET['PRES_ID'];
 
 $query = "delete from precribed_medicine  where MEDICINE_ID = '".$_GET['MEDICINE_ID']."' and PRESCRIPTION_ID ='".$_GET['PRES_ID']."' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
 //echo $query;
-mysql_query($query) or die(mysql_error());
+mysqli_query($link,$query) or die(mysqli_error($link));
 $query1 = "select * from precribed_medicine a where a.PRESCRIPTION_ID ='$PRESCRIPTION_ID' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'" ;
 //echo $query1;
-$result = mysql_query($query1) or die(mysql_error());
+$result = mysqli_query($link,$query1) or die(mysqli_error($link));
 echo "<table id='table-3'>";
-while($d = mysql_fetch_object($result)){
+while($d = mysqli_fetch_object($result)){
 	echo "<tr>
                 <td>
                     <img src='images/stock_list_bullet.png'/>&nbsp;<strong>".$d->MEDICINE_NAME."</strong>&nbsp;<img src='images/arrow-right.png' />

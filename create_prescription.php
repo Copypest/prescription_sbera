@@ -3,7 +3,7 @@ include_once "./inc/datacon.php";
 include_once './inc/header.php';
 if(isset($_SESSION['chamber_name']) && isset($_SESSION['doc_name']) ){
 include_once 'classes/admin_class.php';    
-$admin = new admin();
+$admin = new admin($link);
 $patient_id = $_GET['patient_id'];
 
 $VISIT_ID = $_GET['VISIT_ID'];
@@ -22,10 +22,10 @@ $logged_in_user = $_SESSION['logged_in_user_id'];
 // Get Prescription ID from VISIT_ID
 $query2 = "select * from prescription a where a.VISIT_ID = '".$VISIT_ID."' and a.STATUS = 'DRAFT' and a.chamber_id='".$chamber_name."' AND a.doc_id='".$doc_name."' ";
 //echo $query2;
-$result = mysql_query($query2) or die(mysql_error());
+$result = mysqli_query($link,$query2) or die(mysqli_error($link));
 
-if(mysql_num_rows($result) > 0){
-    while($rows = mysql_fetch_array($result)){
+if(mysqli_num_rows($result) > 0){
+    while($rows = mysqli_fetch_assoc($result)){
     	$max_prescription_id = $rows['PRESCRIPTION_ID'];
     }
     /* header("location:prescription2.php?VISIT_ID=$VISIT_ID&patient_id=$patient_id&PRESCRIPTION_ID=$max_prescription_id");  */
@@ -38,10 +38,9 @@ if(mysql_num_rows($result) > 0){
         values('".$max_prescription_id."','".$VISIT_ID."', '".$chamber_name."','".$doc_name."','". $logged_in_user."')";
     //echo $query_patn;
     
-    mysql_query($query_patn) or die(mysql_error());
+    mysqli_query($link,$query_patn) or die(mysqli_error($link));
     
-    //mysql_query($query_patn) or die(mysql_error());
-    //$PRESCRIPTION_ID = mysql_insert_id();
+    
     
     //Create Prescription with existing Clinical Expression of the patient
   //  $query_select_clinical_impression = "select * from prescribed_cf where  prescription_id in (
@@ -62,12 +61,12 @@ if(mysql_num_rows($result) > 0){
 	 //echo "<br>";
 	 //echo $query_select_clinical_impression;
 
-    $r3 = mysql_query($query_select_clinical_impression) or die(mysql_error());
-    while($row = mysql_fetch_array($r3)) {
+    $r3 = mysqli_query($link,$query_select_clinical_impression) or die(mysqli_error($link));
+    while($row = mysqli_fetch_assoc($r3)) {
     	$q2 = "insert into prescribed_cf (clinical_impression_id 	, prescription_id, chamber_id, doc_id, created_by_user_id)
                     values('".$row['clinical_impression_id']."','".$max_prescription_id."','".$chamber_name."','".$doc_name."', '". $logged_in_user."')";
     	//echo $q2;
-    	mysql_query($q2) or die(mysql_error());
+    	mysqli_query($link,$q2) or die(mysqli_error($link));
     }
 
     //Create Prescription with existing records of a patient
@@ -77,11 +76,11 @@ if(mysql_num_rows($result) > 0){
                                         select max(visit_id)  from visit a where a.patient_id = '$patient_id' and a.visited='yes' and a.chamber_id='$chamber_name' AND a.doc_id='$doc_name') and b.chamber_id='$chamber_name' AND b.doc_id='$doc_name' )  and c.chamber_id='$chamber_name' AND c.doc_id='$doc_name'";
     //echo "<br>";
     //echo $query_pres_history;
-    $r3 = mysql_query($query_pres_history) or die(mysql_error());
-    while($row = mysql_fetch_array($r3)) {
+    $r3 = mysqli_query$link,($query_pres_history) or die(mysqli_error($link));
+    while($row = mysqli_fetch_assoc($r3)) {
     	$q3 = "insert into precribed_medicine (MEDICINE_ID, PRESCRIPTION_ID, MEDICINE_NAME, MEDICINE_DIRECTION, MEDICINE_DOSE, MEDICINE_TIMING, chamber_id, doc_id, created_by_user_id)
                     values('".$row['MEDICINE_ID']."','".$max_prescription_id."','".$row['MEDICINE_NAME']."', '".$row['MEDICINE_DIRECTION']."', '".$row['MEDICINE_DOSE']."', '".$row['MEDICINE_TIMING']."','".$chamber_name."','".$doc_name."', '". $logged_in_user."')";
-        mysql_query($q3)or die(mysql_error());
+        mysqli_query($link,$q3)or die(mysqli_error($link));
     }
     /* header("location:prescription2.php?VISIT_ID=$VISIT_ID&patient_id=$patient_id&PRESCRIPTION_ID=$max_prescription_id");  */
     echo "<script>location.href='prescription2.php?VISIT_ID=$VISIT_ID&patient_id=$patient_id&PRESCRIPTION_ID=$max_prescription_id'</script>";

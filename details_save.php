@@ -3,7 +3,7 @@
  include "datacon.php";
  if(isset($_POST['DETAILS_SAVE'])){
      
- $update= new admin();
+ $update= new admin($link);
  
  //$patientid = $_POST['PATIENT_ID'];
  $visit_id2 = $_POST['vist_id'];
@@ -12,24 +12,24 @@
  
  /*$query = "select * from patient_health_details_master where NAME = 'BMI'";
  
- $rs = mysql_fetch_object(mysql_query($query));
+ $rs = mysqli_fetch_object(mysqli_query($link,$query));
  
  $bmi_id = $rs->ID;
  $query = "select * from patient_health_details_master where NAME = 'WEIGHT'";
  
- $rs = mysql_fetch_object(mysql_query($query));
+ $rs = mysqli_fetch_object(mysqli_query($link,$query));
  
  $weight_id = $rs->ID;
  $query = "select * from patient_health_details_master where NAME = 'HEIGHT'";
  
- $rs = mysql_fetch_object(mysql_query($query));
+ $rs = mysqli_fetch_object(mysqli_query($link,$query));
  
  $height_id = $rs->ID; */
 
 /* $sql2 = "insert into visit (PATIENT_ID, VISIT_DATE, APPOINTMENT_TO_DOC_NAME) values('$patientid',NOW(),'')";
 
- mysql_query($sql2) or die(mysql_error());
-  $id = mysql_insert_id();*/
+ mysqli_query($link,$sql2) or die(mysqli_error($link));
+  $id = mysqli_insert_id($link);*/
   
     
  $bmi = $update->calcBMI($weight, $height);
@@ -44,27 +44,21 @@
  
  /*$query = "insert into patient_health_details(ID, VALUE, VISIT_ID) 
             values('2' , '$weight', '$visit_id2')";
- mysql_query($query);
+ mysqli_query($link,$query);
  
  $query = "insert into patient_health_details(ID, VALUE, VISIT_ID) 
             values('1' , '$height', '$visit_id2')";
- mysql_query($query);
+ mysqli_query($link,$query);
  
  $query = "insert into patient_health_details(ID, VALUE, VISIT_ID) 
             values('3' , '$bmi', '$visit_id2')";
- mysql_query($query);*/
+ mysqli_query($link,$query);*/
  
  
- //mysql_query($sql) or die(mysql_error());
+ //mysqli_query($link,$sql) or die(mysqli_error($link));
 
     header("location:visit_list.php");
-/*echo $sql;
-	if (!mysql_query($sql,$con))
-	  {
-	  die('Error: ' . mysql_error());
-	  }else{
-		  header("location:visit_list.php");
-	  }*/
+
  } else {
      header("location:index.php");
  } 

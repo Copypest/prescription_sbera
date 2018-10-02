@@ -5,7 +5,7 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
 	$chamber_name = $_SESSION['chamber_name'];
 	$doc_name= $_SESSION['doc_name'];
 	
-    $admin = new admin();
+    $admin = new admin($link);
 	$user_type = $_SESSION['user_type']  ;
 
 				
@@ -27,7 +27,7 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
 				$sql1 = "update patient set GENDER = '$gender' ,patient_first_name = '$fname',
 				patient_last_name = '$lname', patient_address = '$addr', patient_city = '$city', patient_dob = '$dob' , patient_cell_num = '$cellnum',
 				patient_alt_cell_num = '$altcellnum', patient_email = '$email' where patient_id = '$patient_id' ";
-				mysql_query($sql1) or die(mysql_error());
+				mysqli_query($link,$sql1) or die(mysqli_error($link));
 				
 				
 				

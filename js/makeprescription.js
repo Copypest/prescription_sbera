@@ -686,7 +686,7 @@ $(document).ready(function(){
 	 	           data: $("#signup_doc_form").serialize(), // serializes the form's elements.
 	 	           success: function(data)
 	 	           {
-	 	        	   
+	 	        	   console.log(data);
 	 	        	  //$myObj = JSON.parse(data)
  	        		  $('#signup_doc_form').hide();
  	        		  $("#signup_doc_form_result").show();

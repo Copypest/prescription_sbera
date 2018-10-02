@@ -23,8 +23,8 @@ ORDER BY d.patient_first_name ASC";
 //echo $sql1;
 
 //$sql1 = "select * from patient where patient_id != ''".$where;
-$result1 = mysql_query($sql1)or die(mysql_error());
-$no = mysql_num_rows($result1);
+$result1 = mysqli_query($link,$sql1)or die(mysqli_error($link));
+$no = mysqli_num_rows($result1);
    
 if($no > 0){
         
@@ -42,7 +42,7 @@ if($no > 0){
         </tr>";
         
         
-        while($d1 = mysql_fetch_array($result1)){
+        while($d1 = mysqli_fetch_assoc($result1)){
            echo "<tr>
                 <td>".$d1['patient_id']."</td>
                 <td>".$d1['prescription_id']."</td>

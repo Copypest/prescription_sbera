@@ -11,10 +11,10 @@
             AND a.investigation_id = b.ID and a.chamber_id=b.chamber_id and a.doc_id=b.doc_id and
             a.chamber_id='".$chamber_name."' AND a.doc_id='".$doc_name."'";
             //echo $query;
-            $result = mysql_query( $query) or die(mysql_error());
-                //$rsd1 = mysql_query($q15);
+            $result = mysqli_query( $link,$query) or die(mysqli_error($link));
+                //$rsd1 = mysqli_query($link,$q15);
 
-                while($rows = mysql_fetch_array($result) ){
+                while($rows = mysqli_fetch_assoc($result) ){
                     
             ?>
                 <div class="row">

@@ -101,21 +101,16 @@ $lastPrescription = "";
 
 $qery112 = "SELECT MAX( PRESCRIPTION_ID ) as PRESCRIPTION_ID, MAX( VISIT_ID ) as VISIT_ID 
 FROM  `prescription`";
-$r1 = mysql_query($qery112) or die(mysql_error());
-$d1 = mysql_fetch_object($r1) ;
+$r1 = mysqli_query($link,$qery112) or die(mysqli_error($link));
+$d1 = mysqli_fetch_object($r1) ;
 
 $PRESCRIPTION_ID = $d1->PRESCRIPTION_ID + 1;  
 $visit_id = $d1->VISIT_ID + 1;
 
-//$r2 = mysql_query("insert into prescription(VISIT_ID, REFERRED_TO, DIET, NEXT_VISIT, ANY_OTHER_DETAILS) values('', '','', '', '')") or die(mysql_error());
-//$PRESCRIPTION_ID = mysql_insert_id();
 
 
-/*if(!empty($_GET['m_id'])){
-	$id = $_GET['m_id'];
-	mysql_query("delete from precribed_medicine where MEDICINE_ID = '$id'") or die(mysql_error());
-	
-}*/
+
+
 ?>
 
 <body >
@@ -246,13 +241,13 @@ $visit_id = $d1->VISIT_ID + 1;
                     //$q11 = "SELECT * FROM precribed_medicine WHERE PRESCRIPTION_ID = '".$_POST['PRESCRIPTION_ID']."'";
                             //echo $q5;
                     
-                            $result = mysql_query($q11) or die(mysql_error()); 
+                            $result = mysqli_query($link,$q11) or die(mysqli_error($link)); 
                     ?>
                    
                     <div  id="medicine" colspan="5">
                        
                         <table id="table-3"> 
-                        <?php while($rs = mysql_fetch_array($result)) { ?>
+                        <?php while($rs = mysqli_fetch_assoc($result)) { ?>
 
                             <tr>
                                 <td>

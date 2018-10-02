@@ -14,7 +14,7 @@ if(isset($_SESSION['user_type']) &&  isset($_SESSION['chamber_name']) && isset($
 	
 	$query = "UPDATE visit SET VISITED = 'cancel' WHERE VISIT_ID = '$visit_id' and chamber_id = '$chamber_name' and doc_id = '$doc_name' ";
 	echo $query;
-	mysql_query($query) or die(mysql_error());
+	mysqli_query($link,$query) or die(mysqli_error($link));
 	}
 	header("location:../visit_list.php");
 } else {

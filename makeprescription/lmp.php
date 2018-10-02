@@ -12,10 +12,10 @@
                         AND a.PRESCRIPTION_ID = b.PRESCRIPTION_ID and a.chamber_id='".$chamber_name."' AND a.doc_id='".$doc_name."' and a.chamber_id=b.chamber_id and a.doc_id=b.doc_id";
                             //echo $q5;
                     
-                            $result = mysql_query($q11) or die(mysqli_error()); 
+                            $result = mysqli_query($link,$q11) or die(mysqli_error()); 
                             
 
-                            while($rs = mysql_fetch_array($result)) {
+                            while($rs = mysqli_fetch_assoc($result)) {
             ?>
                 <?php echo date("d / m / Y", strtotime($rs['LMP_DATE'])); ?> &nbsp; &nbsp;
             <?php    } ?>

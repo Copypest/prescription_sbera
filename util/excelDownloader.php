@@ -16,16 +16,16 @@ function csvFileFromResult($filename, $result, $showColumnHeaders = true) {
 function csvFromResult($stream, $result, $showColumnHeaders = true) {
     if($showColumnHeaders) {
         $columnHeaders = array();
-        $nfields = mysql_num_fields($result);
+        $nfields = mysqli_num_fields($result);
         for($i = 0; $i < $nfields; $i++) {
-            $field = mysql_fetch_field($result, $i);
+            $field = mysqli_fetch_field($result, $i);
             $columnHeaders[] = $field->name;
         }
         fputcsv($stream, $columnHeaders);
     }
 
     $nrows = 0;
-    while($row = mysql_fetch_row($result)) {
+    while($row = mysqli_fetch_row($result)) {
         fputcsv($stream, $row);
         $nrows++;
     }
@@ -67,7 +67,7 @@ and c.patient_id = d.patient_id
 ORDER BY d.patient_first_name ASC";
 
 
-$result = mysql_query($sql1);
+$result = mysqli_query($link,$sql1);
 csvToExcelDownloadFromResult($result);
 
 ?>

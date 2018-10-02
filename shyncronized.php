@@ -27,7 +27,7 @@ foreach($data as $row){
 
 	//echo $sql."<br>";
 
-	if(mysql_query($sql)){
+	if(mysqli_query($link,$sql)){
 		$inserted_ids[] = $id;
 	}
 }

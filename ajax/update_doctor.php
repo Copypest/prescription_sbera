@@ -6,22 +6,11 @@ include '../classes/admin_class.php';
 
 $user_name=trim($_POST['user_name']);
 $doctor_full_name=trim($_POST['doctor_full_name']);
-$doctor_address=mysql_real_escape_string(trim($_POST['doctor_address']));
-$doctor_degree=mysql_real_escape_string(trim($_POST['doctor_degree']));
-/* $doctor_degree2=mysql_real_escape_string(trim($_POST['doctor_degree2']));
-$doctor_degree3=mysql_real_escape_string(trim($_POST['doctor_degree3']));
-$doctor_degree = "";
-if($doctor_degree1 != ""){
-	$doctor_degree .= $doctor_degree1."<br>";
-}
-if($doctor_degree2 != ""){
-	$doctor_degree .= $doctor_degree2."<br>";
-} 
-if($doctor_degree3 != ""){
-	$doctor_degree .= $doctor_degree3."<br>";
-}  */
+$doctor_address=mysqli_real_escape_string($link,trim($_POST['doctor_address']));
+$doctor_degree=mysqli_real_escape_string($link,trim($_POST['doctor_degree']));
 
-$doctor_affiliation=mysql_real_escape_string(trim($_POST['doctor_affiliation']));
+
+$doctor_affiliation=mysqli_real_escape_string($link,trim($_POST['doctor_affiliation']));
 $doctor_email=trim($_POST['doctor_email']);
 $doctor_mobile=trim($_POST['doctor_mobile']);
 $doctor_secondery_contact=trim($_POST['doctor_secondery_contact']);
@@ -42,7 +31,7 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
 								user_name='$doc_name' ";
 		echo $update_doc_master;
 		
-		mysql_query($update_doc_master) or die(mysql_error());
+		mysqli_query($link,$update_doc_master) or die(mysqli_error($link));
 		
 		echo "Success";
 		

@@ -224,12 +224,7 @@ if(isset($_SESSION['page']) && isset($_SESSION['patient_id'])){
     $patient_id = $_SESSION['patient_id'];
 
 //$visit_id = $_GET['visit_id'];
-/*
-$sql1 = mysql_query("select * from patient where patient_id = '$patient_id'") or die(mysql_error());
-$d1 = mysql_fetch_object($sql1) or die(mysql_error());
 
-$r2 = mysql_query("select * from visit where PATIENT_ID = '$patient_id'") or die(mysql_error());
-$n2 = mysql_num_rows($r2) + 1; */
 
 ?>
 
@@ -298,11 +293,11 @@ $n2 = mysql_num_rows($r2) + 1; */
                             FROM visit
                             WHERE PATIENT_ID = '$patient_id' and visited = 'no' ";
 
-            $result_maxvisits = mysql_query($query_maxvisit) or die(mysql_error());
+            $result_maxvisits = mysqli_query($link,$query_maxvisit) or die(mysqli_error($link));
 
-            if ( mysql_num_rows($result_maxvisits) > 0){
+            if ( mysqli_num_rows($result_maxvisits) > 0){
 
-                while($visitarr1 = mysql_fetch_array($result_maxvisits)){
+                while($visitarr1 = mysqli_fetch_assoc($result_maxvisits)){
                         $current_visit_id = $visitarr1['max_visit'];
                 } 
         ?>
@@ -328,9 +323,9 @@ $n2 = mysql_num_rows($r2) + 1; */
                                 and a.VISIT_ID = '$current_visit_id'
                                 and a.ID = '2'";
                             
-                            $rsd1 = mysql_query($q15);
+                            $rsd1 = mysqli_query($link,$q15);
                            
-                            while($rs = mysql_fetch_array($rsd1)){
+                            while($rs = mysqli_fetch_assoc($rsd1)){
                                 $weight = $rs['VALUE'];
                             }
                             
@@ -343,9 +338,9 @@ $n2 = mysql_num_rows($r2) + 1; */
                                 and a.VISIT_ID = '$current_visit_id'
                                 and a.ID = '1'";
                             
-                            $rsd1 = mysql_query($q15);
+                            $rsd1 = mysqli_query($link,$q15);
                            
-                           while($rs = mysql_fetch_array($rsd1)){
+                           while($rs = mysqli_fetch_assoc($rsd1)){
                                 $height = $rs['VALUE'];
                             } 
                             
@@ -356,9 +351,9 @@ $n2 = mysql_num_rows($r2) + 1; */
                                 and a.VISIT_ID = '$current_visit_id'
                                 and b.NAME = 'BMI'";
                             
-                            $rsd1 = mysql_query($q15);
+                            $rsd1 = mysqli_query($link,$q15);
                            
-                           while($rs = mysql_fetch_array($rsd1)){
+                           while($rs = mysqli_fetch_assoc($rsd1)){
                                 $bmi = $rs['VALUE'];
                             }     
                                    
@@ -399,7 +394,7 @@ $n2 = mysql_num_rows($r2) + 1; */
                     //$q11 = "SELECT * FROM precribed_medicine WHERE PRESCRIPTION_ID = '".$_POST['PRESCRIPTION_ID']."'";
                             //echo $q5;
                     
-                            $result = mysql_query($q11) or die(mysql_error()); 
+                            $result = mysqli_query($link,$q11) or die(mysqli_error($link)); 
                     ?>
 		
 		<table width="720" border="0" cellspacing="1" cellpadding="1" id="datatable">
@@ -416,7 +411,7 @@ $n2 = mysql_num_rows($r2) + 1; */
                           <tr>
                           	<td id="medition" colspan="5">
                                     
-                                    <?php while($rs = mysql_fetch_array($result)) { ?>
+                                    <?php while($rs = mysqli_fetch_assoc($result)) { ?>
                                         <table  width="720" border="0" cellspacing="0" cellpadding="0"> 
                                             <tr>
                                                 <td width="240" height="23" align="left"><?php echo $rs['investigation_name'] ?><input type="hidden" name="investigation_id" value="<?php echo $rs['investigation_id'];?>"/></td>

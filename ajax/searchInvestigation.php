@@ -12,8 +12,8 @@ $invest_name = $_GET["invest_name"];
 
 $sql1 = "select * from investigation_master a where a.investigation_name like '".$invest_name."%' 
         and a.STATUS = 'ACTIVE' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
-$result1 = mysql_query($sql1)or die(mysql_error());
-$no = mysql_num_rows($result1);
+$result1 = mysqli_query($link,$sql1)or die(mysqli_error($link));
+$no = mysqli_num_rows($result1);
 
 if($no > 0){
         
@@ -25,7 +25,7 @@ if($no > 0){
         </tr></thead><tbody>";
         
         
-        while($d1 = mysql_fetch_array($result1)){
+        while($d1 = mysqli_fetch_assoc($result1)){
            echo "<tr>
 				<td>".$d1['ID']."</td>
                 <td>".$d1['investigation_name']."</td>

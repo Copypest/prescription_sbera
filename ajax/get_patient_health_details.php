@@ -9,17 +9,17 @@ $q = $_GET["term"];
 if (!$q) return;
 
 $sql = "select distinct(a.NAME) from  patient_health_details_master a where NAME LIKE '$q%' and a.STATUS = 'ACTIVE' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
-/* $rsd = mysql_query($sql);
-while($rs = mysql_fetch_array($rsd)) {
+/* $rsd = mysqli_query($link,$sql);
+while($rs = mysqli_fetch_assoc($rsd)) {
 	$cname = $rs['investigation_type'];
 	echo "$cname\n";
 } */
-$result = mysql_query($sql)or die(mysql_error());
+$result = mysqli_query($link,$sql)or die(mysqli_error($link));
 
 
 $return_arr= array();
 
-while ($row = mysql_fetch_array($result))
+while ($row = mysqli_fetch_assoc($result))
 {
 	$row_array['label'] = $row['NAME'];
 	$row_array['value'] = $row['NAME'];

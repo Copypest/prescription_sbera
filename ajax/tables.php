@@ -30,12 +30,12 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
 	
 	//echo $query;
 	
-	$result = mysql_query($query)or die(mysql_error());
-	//$rowObject = mysql_fetch_assoc($result) ;
+	$result = mysqli_query($link,$query)or die(mysqli_error($link));
+	//$rowObject = mysqli_fetch_assoc($result) ;
 	
 	$data = array();
 	
-	while ($row = mysql_fetch_array($result))
+	while ($row = mysqli_fetch_assoc($result))
 	{
 		$data[] = $row;
 	}

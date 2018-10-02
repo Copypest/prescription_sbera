@@ -28,13 +28,13 @@ include_once "./inc/header_print_sroy.php";
             
             include_once "classes/admin_class.php"; 
             include_once 'classes/prescription_header.php';
-	            $update= new admin();
+	            $update= new admin($link);
 	            $prescription_id = $_GET['PRESCRIPTION_ID'];
 	            $d1 = $update->getPatientInformationforArchievePrescription($prescription_id, $chamber_name, $doc_name);
 	            $_SESSION['visit_date'] = $d1->VISIT_DATE;
 	            $chamber_id = $_SESSION['chamber_name'];
 	            
-	            $admin_obj = new admin();
+	            $admin_obj = new admin($link);
 	            
 	            $obj = $admin_obj->getChamberDetails($chamber_id);
 	            $doc_name = $_SESSION['doc_name'];
@@ -106,8 +106,8 @@ include_once "./inc/header_print_sroy.php";
                                     FROM prescribed_cf a, clinical_impression b
                                     WHERE a.clinical_impression_id = b.id
                                     AND a.prescription_id = '".$_GET['PRESCRIPTION_ID']."' and a.chamber_id='".$chamber_name."' and a.doc_id='".$doc_name."' and a.chamber_id=b.chamber_id and a.doc_id=b.doc_id";
-                            $rsd1 = mysql_query($q15)  or die(mysql_error()); 
-                            while($rs = mysql_fetch_array($rsd1) ) { ?>
+                            $rsd1 = mysqli_query($link,$q15)  or die(mysqli_error($link)); 
+                            while($rs = mysqli_fetch_assoc($rsd1) ) { ?>
                                 <tr> <td ><?php echo $rs['type']; ?></td> </tr>
                                <?php 
                                
@@ -124,13 +124,13 @@ include_once "./inc/header_print_sroy.php";
                         <table>
                             
                         <?php
-    $result = mysql_query("SELECT b.investigation_name, a.value, b.unit
+    $result = mysqli_query($link,"SELECT b.investigation_name, a.value, b.unit
                             FROM patient_investigation a, investigation_master b
                             WHERE a.patient_id = '".$_GET['patient_id']."'
                             AND a.visit_id = '".$_GET['visit_id']."'
                             AND a.investigation_id = b.ID and a.chamber_id='".$chamber_name."' and a.doc_id='".$doc_name."' and a.chamber_id=b.chamber_id and a.doc_id=b.doc_id");
     
-    while($rows = mysql_fetch_array($result) ){
+    while($rows = mysqli_fetch_assoc($result) ){
     
 ?>
                            
@@ -165,9 +165,9 @@ include_once "./inc/header_print_sroy.php";
                                 where
                                 a.ID = b.ID
                                 and a.VISIT_ID = '".$_GET['visit_id']."' and a.chamber_id='".$chamber_name."' and a.doc_id='".$doc_name."' and a.chamber_id=b.chamber_id and a.doc_id=b.doc_id";
-					 $rsd1 = mysql_query($q15);
+					 $rsd1 = mysqli_query($link,$q15);
 
-                            while($rs = mysql_fetch_array($rsd1)) {
+                            while($rs = mysqli_fetch_assoc($rsd1)) {
                                     $name = $rs['NAME'];
                                     $value = $rs['VALUE'];
                                     $id = $rs['ID'];
@@ -197,10 +197,10 @@ include_once "./inc/header_print_sroy.php";
                     
                     $query = "select * from prescription a where a.PRESCRIPTION_ID = 
                         '".$prescriptionid."' and a.VISIT_ID = '".$visit_id."' and a.chamber_id='".$chamber_name."' and a.doc_id='".$doc_name."' ";
-                    $result = mysql_query($query);
+                    $result = mysqli_query($link,$query);
                     $diet1 = "";
                     $nextvisit1 = "";
-                    while($rs = mysql_fetch_array($result)){
+                    while($rs = mysqli_fetch_assoc($result)){
                         $diet1 = $rs['DIET'];
                         $nextvisit1 = $rs['NEXT_VISIT'];
                         $other_comment = $rs['ANY_OTHER_DETAILS'];
@@ -225,12 +225,12 @@ include_once "./inc/header_print_sroy.php";
                         $q11 = "SELECT * FROM precribed_medicine a WHERE a.PRESCRIPTION_ID = '".$_GET['PRESCRIPTION_ID']."' and a.chamber_id='".$chamber_name."' and a.doc_id='".$doc_name."' ";
                             //echo $q5;
                 
-                            $result = mysql_query($q11) or die(mysql_error()); 
+                            $result = mysqli_query($link,$q11) or die(mysqli_error($link)); 
                     ?>
                     
                     
                         <table id="table-3" class="table"> 
-                        <?php while($rs = mysql_fetch_array($result)) { ?>
+                        <?php while($rs = mysqli_fetch_assoc($result)) { ?>
 
                             <tr>
                                 <td class='medicine_desc'>
@@ -273,8 +273,8 @@ include_once "./inc/header_print_sroy.php";
                                         FROM prescribed_investigation a, investigation_master b
                                         WHERE a.investigation_id = b.ID
                                         AND prescription_id = '".$_GET['PRESCRIPTION_ID']."' and a.chamber_id='".$chamber_name."' and a.doc_id='".$doc_name."' and a.chamber_id=b.chamber_id and a.doc_id=b.doc_id";
-                                $result = mysql_query($query);
-                                    while($rs = mysql_fetch_array($result)) {
+                                $result = mysqli_query($link,$query);
+                                    while($rs = mysqli_fetch_assoc($result)) {
                                             $cname = $rs['investigation_name'];
                                             //$inv_id =$rs['ID'];
                                             echo $cname. ", ";

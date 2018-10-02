@@ -6,7 +6,7 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
     $doc_name= $_SESSION['doc_name'];
 $PRESCRIPTION_ID = $_GET['PRESCRIPTION_ID'];
 $ci_id = $_GET['ID'];
-$admin= new admin();
+$admin= new admin($link);
 
 $admin->deleteSocialHistory($PRESCRIPTION_ID,$ci_id,$con,$chamber_name,$doc_name);
 
@@ -17,10 +17,10 @@ $q15 = "SELECT b.TYPE, b.ID FROM prescribed_social_history a, social_history_mas
                 WHERE a.social_history_id = b.ID
                 AND a.prescription_id = '$PRESCRIPTION_ID' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
 //echo $q15 ; 
-        $rsd1 = mysql_query($q15) or die (mysql_error());
+        $rsd1 = mysqli_query($link,$q15) or die (mysqli_error($link));
 echo '<table>';
-        if(mysql_num_rows($rsd1) > 0){
-        while($rs = mysql_fetch_array($rsd1)) {
+        if(mysqli_num_rows($rsd1) > 0){
+        while($rs = mysqli_fetch_assoc($rsd1)) {
             $type = $rs['TYPE'];
             $cf_d = $rs['ID'];
             echo "<tr><td style='width: 180px;'>".$type."<a id='minusSocialHistory' href='#' ></a></td>".

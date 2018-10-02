@@ -9,7 +9,7 @@ $cfname = $_GET['cfname'];
 $cfvalue = str_replace("PLUS","+",$_GET['cfvalue']);
 $visit_id = $_GET['visit_id'];
 //GET ID of the TYPE
-$admin = new admin();
+$admin = new admin($link);
 
 
 if($cfname !=''){
@@ -24,8 +24,8 @@ $q15 = "select a.VALUE, b.NAME, a.ID from
 								AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name' ";
 
 
-$rsd1 = mysql_query($q15);
-while($rs = mysql_fetch_array($rsd1)) {
+$rsd1 = mysqli_query($link,$q15);
+while($rs = mysqli_fetch_assoc($rsd1)) {
     $name = $rs['NAME'];
     $value = $rs['VALUE'];
     $id = $rs['ID'];

@@ -3,7 +3,7 @@ include './inc/datacon.php';
 include './classes/admin_class.php';
 include_once './inc/header.php';
 include_once './classes/prescription_header.php';
-$admin = new admin();
+$admin = new admin($link);
 
 
 

@@ -4,7 +4,7 @@
 	$chamber_id = $_SESSION['chamber_name'];
 	$user_id = $_SESSION['chamber_name'];
 	
-	$admin_obj = new admin();
+	$admin_obj = new admin($link);
 	
 	$obj = $admin_obj->getChamberDetails($chamber_id);
 	$objDoc = $admin_obj->getDoctorDetails($user_id);

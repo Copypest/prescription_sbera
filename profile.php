@@ -6,7 +6,7 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
 	$chamber_name = $_SESSION['chamber_name'];
 	$doc_name= $_SESSION['doc_name'];
 	$header = new Header($doc_name,$chamber_name);
-	$admin = new admin();
+	$admin = new admin($link);
 ?>
 
     <?php include './inc/dashboard_topnav.php'; ?>
@@ -149,7 +149,7 @@ if(isset($_SESSION['user_type']) &&   isset($_SESSION['chamber_name']) && isset(
 			    	</tr>
 			    	</thead>
 					<tbody>
- <?php while ($row = mysql_fetch_array($result)) {
+ <?php while ($row = mysqli_fetch_assoc($result)) {
  		echo "<tr>";
  		echo "<td>".$row['chamber_name']."</td>";
  		echo "<td>".$row['chamber_address']."</td>";

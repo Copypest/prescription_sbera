@@ -20,8 +20,8 @@
     <div id="tab111" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE1' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -38,8 +38,8 @@
     <div id="tab112" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE2' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -57,8 +57,8 @@
     <div id="tab113" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE3' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -76,8 +76,8 @@
     <div id="tab114" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE4' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -95,8 +95,8 @@
     <div id="tab115" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE5' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -114,8 +114,8 @@
     <div id="tab116" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE6' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -133,8 +133,8 @@
     <div id="tab117" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE7' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -152,8 +152,8 @@
     <div id="tab118" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE8' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -171,8 +171,8 @@
     <div id="tab119" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE9' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -190,8 +190,8 @@
     <div id="tab1110" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE10' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -209,8 +209,8 @@
      <div id="tab1111" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE11' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -228,8 +228,8 @@
     <div id="tab1112" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE12' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>
@@ -247,8 +247,8 @@
     <div id="tab1113" class="check_fields" >
                     <?php
                     $query = "select * from investigation_master where investigation_type = 'TYPE13' and STATUS = 'ACTIVE' AND chamber_id='$chamber_name' AND doc_id='$doc_name'";
-                    $result = mysql_query($query);
-                        while($rs = mysql_fetch_array($result)) {
+                    $result = mysqli_query($link,$query);
+                        while($rs = mysqli_fetch_assoc($result)) {
                                 $cname = $rs['investigation_name'];
                                 $inv_id =$rs['ID'];
                                 echo "<label class='checkbox-inline'>

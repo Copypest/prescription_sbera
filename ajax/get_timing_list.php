@@ -8,17 +8,17 @@ $q = strtolower($_GET["term"]);
 if (!$q) return;
 
 $sql = "select * from dose_timing_master a where a.TIMING LIKE '$q%' AND a.chamber_id='$chamber_name' AND a.doc_id='$doc_name'";
-/* $rsd = mysql_query($sql);
-while($rs = mysql_fetch_array($rsd)) {
+/* $rsd = mysqli_query($link,$sql);
+while($rs = mysqli_fetch_assoc($rsd)) {
 	$cname = $rs['TIMING'];
 	echo "$cname\n";
 } */
-$result = mysql_query($sql)or die(mysql_error());
-$rowObject = mysql_fetch_assoc($result) ;
+$result = mysqli_query($link,$sql)or die(mysqli_error($link));
+$rowObject = mysqli_fetch_assoc($result) ;
 
 $return_arr= array();
 
-while ($row = mysql_fetch_array($result))
+while ($row = mysqli_fetch_assoc($result))
 {
 	$row_array['label'] = $row['TIMING'];
 	$row_array['value'] = $row['TIMING'];
